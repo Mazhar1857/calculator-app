@@ -1,0 +1,10 @@
+*{
+    font-family: "League Spartan", sans-serif; 
+}
+.container {
+    background-color: var(--bg-body);
+    min-height: 100dvh;
+    display: flex;
+    /* align-items: center; */
+    
+}
