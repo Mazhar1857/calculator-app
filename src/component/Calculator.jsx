@@ -3,12 +3,58 @@ import './calculator.css';
 import { themeData } from './themeData';
 
 const Calculator = ({ theme, setTheme, themeClr }) => {
+    const [input, setInput] = useState('');
 
     const handleTheme = (e) => {
         const value = e.target.value
         setTheme(value);
+    }
+
+    const handleInput = (value) => {
+        if (value === '1' || value === '2' || value === '3' || value === '4' || value === '5' || value === '6' || value === '7' || value === '8' || value === '9' || value === '0' || value === '+' || value === '-' || value === '*' || value === '/' || value === '.') {
+            setInput((pre => {
+                return pre + value;
+            }))
+        }
+
+        if (value === 'Del') {
+            setInput((pre) => {
+                return pre.toString().slice(0, -1)
+            })
+        }
+
+        if (value === 'Equal') {
+            setInput(eval(input));
+        }
+        if (value === 'Reset') {
+            setInput('');
+        }
 
     }
+
+    const handleKeyInput = (e) => {
+        const value = e.key;
+        const input = e.target.value;
+
+        if (value === '1' || value === '2' || value === '3' || value === '4' || value === '5' || value === '6' || value === '7' || value === '8' || value === '9' || value === '0' || value === '+' || value === '-' || value === '*' || value === '/') {
+            setInput((pre) => {
+                return pre + value;
+            })
+        }
+
+        if (value === 'Backspace') {
+            setInput((pre) => {
+                return pre.toString().slice(0, -1)
+            })
+        }
+
+        if (value === 'Enter') {
+            setInput(eval(input));
+        }
+    }
+
+
+
     return (
         <div className='calculator-component'
             style={{
@@ -46,30 +92,31 @@ const Calculator = ({ theme, setTheme, themeClr }) => {
                             max={2}
                             value={theme}
                             onChange={handleTheme}
+
                         />
                     </div>
                 </div>
             </div>
-            <div className='input-field'><input type="text" /></div>
+            <div className='input-field'><input type="text" value={input} onChange={handleInput} onKeyDown={handleKeyInput} /></div>
             <div className='calc-input-btn'>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button className='dell-btn'>DEL</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>+</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>-</button>
-                <button>.</button>
-                <button>0</button>
-                <button>/</button>
-                <button>x</button>
-                <button className='reset-btn'>RESET</button>
-                <button className='equal-btn'>=</button>
+                <button onClick={() => { handleInput('7') }}>7</button>
+                <button onClick={() => { handleInput('8') }} >8</button>
+                <button onClick={() => { handleInput('9') }} >9</button>
+                <button onClick={() => { handleInput('Del') }} className='dell-btn'>DEL</button>
+                <button onClick={() => { handleInput('4') }} >4</button>
+                <button onClick={() => { handleInput('5') }} >5</button>
+                <button onClick={() => { handleInput('6') }} >6</button>
+                <button onClick={() => { handleInput("+") }} >+</button>
+                <button onClick={() => { handleInput('1') }} >1</button>
+                <button onClick={() => { handleInput('2') }} >2</button>
+                <button onClick={() => { handleInput('3') }} >3</button>
+                <button onClick={() => { handleInput("-") }} >-</button>
+                <button onClick={() => { handleInput(".") }} >.</button>
+                <button onClick={() => { handleInput('0') }} >0</button>
+                <button onClick={() => { handleInput("/") }} >/</button>
+                <button onClick={() => { handleInput("*") }} >x</button>
+                <button onClick={() => { handleInput("Reset") }} className='reset-btn'>RESET</button>
+                <button onClick={() => { handleInput("Equal") }} className='equal-btn'>=</button>
             </div>
         </div >
     )
